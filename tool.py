@@ -1,5 +1,3 @@
-#!/usr/bin/env Python
-# -*-coding:utf-8-*- 
 #coding: utf-8
 from PIL import Image
 import os
@@ -7,7 +5,6 @@ import sys
 import json
 from datetime import datetime
 from ImageProcess import Graphics
-import io
 
 # 定义压缩比，数值越大，压缩越小
 SIZE_normal = 1.0
