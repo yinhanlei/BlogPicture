@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from ImageProcess import Graphics
 
-# ¶¨ÒåÑ¹Ëõ±È£¬ÊıÖµÔ½´ó£¬Ñ¹ËõÔ½Ğ¡
+# å®šä¹‰å‹ç¼©æ¯”ï¼Œæ•°å€¼è¶Šå¤§ï¼Œå‹ç¼©è¶Šå°
 SIZE_normal = 1.0
 SIZE_small = 1.5
 SIZE_more_small = 2.0
@@ -14,18 +14,18 @@ SIZE_more_small_small = 3.0
 
 
 def make_directory(directory):
-    """´´½¨Ä¿Â¼"""
+    """åˆ›å»ºç›®å½•"""
     os.makedirs(directory)
 
 def directory_exists(directory):
-    """ÅĞ¶ÏÄ¿Â¼ÊÇ·ñ´æÔÚ"""
+    """åˆ¤æ–­ç›®å½•æ˜¯å¦å­˜åœ¨"""
     if os.path.exists(directory):
         return True
     else:
         return False
 
 def list_img_file(directory):
-    """ÁĞ³öÄ¿Â¼ÏÂËùÓĞÎÄ¼ş£¬²¢É¸Ñ¡³öÍ¼Æ¬ÎÄ¼şÁĞ±í·µ»Ø"""
+    """åˆ—å‡ºç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶ï¼Œå¹¶ç­›é€‰å‡ºå›¾ç‰‡æ–‡ä»¶åˆ—è¡¨è¿”å›"""
     old_list = os.listdir(directory)
     # print old_list
     new_list = []
@@ -47,12 +47,12 @@ def print_help():
     """)
 
 def compress(choose, des_dir, src_dir, file_list):
-    """Ñ¹ËõËã·¨£¬img.thumbnail¶ÔÍ¼Æ¬½øĞĞÑ¹Ëõ£¬
+    """å‹ç¼©ç®—æ³•ï¼Œimg.thumbnailå¯¹å›¾ç‰‡è¿›è¡Œå‹ç¼©ï¼Œ
     
-    ²ÎÊı
+    å‚æ•°
     -----------
     choose: str
-            Ñ¡ÔñÑ¹ËõµÄ±ÈÀı£¬ÓĞ4¸öÑ¡Ïî£¬Ô½´óÑ¹ËõºóµÄÍ¼Æ¬Ô½Ğ¡
+            é€‰æ‹©å‹ç¼©çš„æ¯”ä¾‹ï¼Œæœ‰4ä¸ªé€‰é¡¹ï¼Œè¶Šå¤§å‹ç¼©åçš„å›¾ç‰‡è¶Šå°
     """
     if choose == '1':
         scale = SIZE_normal
@@ -69,7 +69,7 @@ def compress(choose, des_dir, src_dir, file_list):
         img.thumbnail((int(w/scale), int(h/scale)))
         img.save(des_dir + infile)
 def compress_photo():
-    '''µ÷ÓÃÑ¹ËõÍ¼Æ¬µÄº¯Êı
+    '''è°ƒç”¨å‹ç¼©å›¾ç‰‡çš„å‡½æ•°
     '''
     src_dir, des_dir = "photos/", "min_photos/"
     
@@ -83,31 +83,31 @@ def compress_photo():
             make_directory(des_dir)
         file_list_des = list_img_file(des_dir)
         # print file_list
-    '''Èç¹ûÒÑ¾­Ñ¹ËõÁË£¬¾Í²»ÔÙÑ¹Ëõ'''
+    '''å¦‚æœå·²ç»å‹ç¼©äº†ï¼Œå°±ä¸å†å‹ç¼©'''
     for i in range(len(file_list_des)):
         if file_list_des[i] in file_list_src:
             file_list_src.remove(file_list_des[i])
     if len(file_list_src) == 0:
-        print("=====Ã»ÓĞĞÂÎÄ¼şĞèÒªÑ¹Ëõ=======")
+        print("=====æ²¡æœ‰æ–°æ–‡ä»¶éœ€è¦å‹ç¼©=======")
     compress('4', des_dir, src_dir, file_list_src)
 
 def handle_photo():
-    '''¸ù¾İÍ¼Æ¬µÄÎÄ¼şÃû´¦Àí³ÉĞèÒªµÄjson¸ñÊ½µÄÊı¾İ
+    '''æ ¹æ®å›¾ç‰‡çš„æ–‡ä»¶åå¤„ç†æˆéœ€è¦çš„jsonæ ¼å¼çš„æ•°æ®
     
     -----------
-    ×îºó½«data.jsonÎÄ¼ş´æµ½²©¿ÍµÄsource/photosÎÄ¼ş¼ĞÏÂ
+    æœ€åå°†data.jsonæ–‡ä»¶å­˜åˆ°åšå®¢çš„source/photosæ–‡ä»¶å¤¹ä¸‹
     '''
     src_dir, des_dir = "photos/", "min_photos/"
     file_list = list_img_file(src_dir)
     list_info = []
-    file_list.sort(key=lambda x: x.split('_')[0])   # °´ÕÕÈÕÆÚÅÅĞò
+    file_list.sort(key=lambda x: x.split('_')[0])   # æŒ‰ç…§æ—¥æœŸæ’åº
     for i in range(len(file_list)):
         filename = file_list[i]
         date_str, info = filename.split("_")
         info, _ = info.split(".")
         date = datetime.strptime(date_str, "%Y-%m-%d")
         year_month = date_str[0:7]            
-        if i == 0:  # ´¦ÀíµÚÒ»¸öÎÄ¼ş
+        if i == 0:  # å¤„ç†ç¬¬ä¸€ä¸ªæ–‡ä»¶
             new_dict = {"date": year_month, "arr":{'year': date.year,
                                                                    'month': date.month,
                                                                    'link': [filename],
@@ -116,7 +116,7 @@ def handle_photo():
                                                                    }
                                         } 
             list_info.append(new_dict)
-        elif year_month != list_info[-1]['date']:  # ²»ÊÇ×îºóµÄÒ»¸öÈÕÆÚ£¬¾ÍĞÂ½¨Ò»¸ödict
+        elif year_month != list_info[-1]['date']:  # ä¸æ˜¯æœ€åçš„ä¸€ä¸ªæ—¥æœŸï¼Œå°±æ–°å»ºä¸€ä¸ªdict
             new_dict = {"date": year_month, "arr":{'year': date.year,
                                                    'month': date.month,
                                                    'link': [filename],
@@ -125,20 +125,20 @@ def handle_photo():
                                                    }
                         }
             list_info.append(new_dict)
-        else:  # Í¬Ò»¸öÈÕÆÚ
+        else:  # åŒä¸€ä¸ªæ—¥æœŸ
             list_info[-1]['arr']['link'].append(filename)
             list_info[-1]['arr']['text'].append(info)
             list_info[-1]['arr']['type'].append('image')
-    list_info.reverse()  # ·­×ª
+    list_info.reverse()  # ç¿»è½¬
     final_dict = {"list": list_info}
     with open("E:/hexosite/source/photos/data.json","w") as fp:
         json.dump(final_dict, fp)
 
 def cut_photo():
-    """²Ã¼ôËã·¨
+    """è£å‰ªç®—æ³•
     
     ----------
-    µ÷ÓÃGraphicsÀàÖĞµÄ²Ã¼ôËã·¨£¬½«src_dirÄ¿Â¼ÏÂµÄÎÄ¼ş½øĞĞ²Ã¼ô£¨²Ã¼ô³ÉÕı·½ĞÎ£©
+    è°ƒç”¨Graphicsç±»ä¸­çš„è£å‰ªç®—æ³•ï¼Œå°†src_dirç›®å½•ä¸‹çš„æ–‡ä»¶è¿›è¡Œè£å‰ªï¼ˆè£å‰ªæˆæ­£æ–¹å½¢ï¼‰
     """
     src_dir = "photos/"
     if directory_exists(src_dir):
@@ -161,17 +161,17 @@ def cut_photo():
 
 def git_operation():
     '''
-    git ÃüÁîĞĞº¯Êı£¬½«²Ö¿âÌá½»
+    git å‘½ä»¤è¡Œå‡½æ•°ï¼Œå°†ä»“åº“æäº¤
     
     ----------
-    ĞèÒª°²×°gitÃüÁîĞĞ¹¤¾ß£¬²¢ÇÒÌí¼Óµ½»·¾³±äÁ¿ÖĞ
+    éœ€è¦å®‰è£…gitå‘½ä»¤è¡Œå·¥å…·ï¼Œå¹¶ä¸”æ·»åŠ åˆ°ç¯å¢ƒå˜é‡ä¸­
     '''
     os.system('git add --all')
     os.system('git commit -m "add photos"')
     os.system('git push origin master')
 
 if __name__ == "__main__":
-    cut_photo()        # ²Ã¼ôÍ¼Æ¬£¬²Ã¼ô³ÉÕı·½ĞÎ£¬È¥ÖĞ¼ä²¿·Ö
-    compress_photo()   # Ñ¹ËõÍ¼Æ¬£¬²¢±£´æµ½mini_photosÎÄ¼ş¼ĞÏÂ
-    git_operation()    # Ìá½»µ½github²Ö¿â
-    handle_photo()     # ½«ÎÄ¼ş´¦Àí³Éjson¸ñÊ½£¬´æµ½²©¿Í²Ö¿âÖĞ
+    cut_photo()        # è£å‰ªå›¾ç‰‡ï¼Œè£å‰ªæˆæ­£æ–¹å½¢ï¼Œå»ä¸­é—´éƒ¨åˆ†
+    compress_photo()   # å‹ç¼©å›¾ç‰‡ï¼Œå¹¶ä¿å­˜åˆ°mini_photosæ–‡ä»¶å¤¹ä¸‹
+    git_operation()    # æäº¤åˆ°githubä»“åº“
+    handle_photo()     # å°†æ–‡ä»¶å¤„ç†æˆjsonæ ¼å¼ï¼Œå­˜åˆ°åšå®¢ä»“åº“ä¸­
