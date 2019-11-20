@@ -133,7 +133,7 @@ def handle_photo():
             list_info[-1]['arr']['type'].append('image')
     list_info.reverse()  # 翻转
     final_dict = {"list": list_info}
-    with open("E:/hexosite/source/photos/data.json","w",encoding='unicode_escape') as fp:
+    with io.open("E:/hexosite/source/photos/data.json","w",encoding='unicode_escape') as fp:
         json.dump(final_dict, fp)
 
 def cut_photo():
