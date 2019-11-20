@@ -5,6 +5,7 @@ import sys
 import json
 from datetime import datetime
 from ImageProcess import Graphics
+import io
 
 # 定义压缩比，数值越大，压缩越小
 SIZE_normal = 1.0
@@ -131,7 +132,7 @@ def handle_photo():
             list_info[-1]['arr']['type'].append('image')
     list_info.reverse()  # 翻转
     final_dict = {"list": list_info}
-    with open("E:/hexosite/source/photos/data.json","w",encoding='UTF-8') as fp:
+    with io.open("E:/hexosite/source/photos/data.json","w",encoding='UTF-8') as fp:
         json.dump(final_dict, fp)
 
 def cut_photo():
